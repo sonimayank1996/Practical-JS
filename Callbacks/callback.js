@@ -10,3 +10,25 @@ function reachHome() {
 }
 
 reachedHomm(reachHome);
+
+// Write a simple API simulation using setTimeout and a callback.
+setTimeout(() => {
+   console.log('data fetch');
+}, 2000)
+
+// 5️⃣ Convert this callback hell into promises
+getUser(function(user) {
+  getOrders(user.id, function(orders) {
+    getCart(orders[0], function(cart) {
+      console.log(cart);
+    });
+  });
+});
+
+getUser().then(res => res.json()).then((user) => {
+    return getOrders(user.id).then((res) => res.json().then(orders => {
+        return getCart(orders[0]).then(res => res.json().then(cart) => {
+            return cart;
+        })
+    }
+})
